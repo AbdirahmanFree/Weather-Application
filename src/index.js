@@ -1,6 +1,7 @@
+import "./style.css"
 const baseWeatherUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
 const additionalWeatherUrl = "?unitGroup=metric&key=K3SUUA68HPDGPGSYTU2DVYDJZ&contentType=json"
-const baseGiphyUrl = "https://api.giphy.com/v1/gifs/translate?api_key=FtiT4Blu5M6pJUiaLvNLnQegTn9UP1yE&s="
+const giphyUrl ="https://api.giphy.com/v1/gifs/u01ioCe6G8URG?api_key=FtiT4Blu5M6pJUiaLvNLnQegTn9UP1yE"
 
 const image = document.getElementById("background");
 
@@ -15,12 +16,10 @@ const image = document.getElementById("background");
 
 
 
-async function setBackgroundPromise(city){
-    const query = `${city} `
-    const url = `${baseGiphyUrl}${encodeURIComponent(query)}`;
-    console.log(url)
+async function setBackgroundPromise(){
     
-    const response = await fetch(url);
+    console.log(giphyUrl)
+    const response = await fetch(giphyUrl);
     const imageJson = await response.json()
     console.log(imageJson)
     const src = imageJson.data.images.original.url
