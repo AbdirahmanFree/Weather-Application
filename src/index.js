@@ -7,6 +7,7 @@ const image = document.getElementById("background");
 const container = document.getElementById("container")
 
 
+
  async function getCityWeatherDataPromise(city){
     const url =  `${baseWeatherUrl}${city}${additionalWeatherUrl}`;
     const response = await fetch(url);
