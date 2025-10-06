@@ -1,9 +1,10 @@
 import "./style.css"
 const baseWeatherUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
 const additionalWeatherUrl = "?unitGroup=metric&key=K3SUUA68HPDGPGSYTU2DVYDJZ&contentType=json"
-const giphyUrl ="https://api.giphy.com/v1/gifs/u01ioCe6G8URG?api_key=FtiT4Blu5M6pJUiaLvNLnQegTn9UP1yE"
+const giphyUrl ="https://api.giphy.com/v1/gifs/k3CeSrt9IZ6aorWCy1?api_key=FtiT4Blu5M6pJUiaLvNLnQegTn9UP1yE"
 
 const image = document.getElementById("background");
+const container = document.getElementById("container")
 
 
  async function getCityWeatherDataPromise(city){
@@ -23,12 +24,8 @@ async function setBackgroundPromise(){
     const imageJson = await response.json()
     console.log(imageJson)
     const src = imageJson.data.images.original.url
-    image.src = src
-    
-    
-    
-   
-    
+    container.style.backgroundImage =  `url("${src}")`
+
     
 }
 getCityWeatherDataPromise("Toronto")
