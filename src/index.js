@@ -51,10 +51,10 @@ function parseAndShowData(data) {
    console.log(todayWeather)
 
    const todayWeatherHigh = todayWeather.tempmax
-   todayHigh.textContent = `H: ${todayWeatherHigh}°`
+   todayHigh.textContent = `H: ${todayWeatherHigh}°C`
 
    const todayWeatherLow = todayWeather.tempmin
-   todayLow.textContent =  `L: ${todayWeatherLow}°`
+   todayLow.textContent =  `L: ${todayWeatherLow}°C`
 
    const todayWeatherConditions = todayWeather.conditions
    todaysConditions.textContent = todayWeatherConditions
@@ -62,7 +62,9 @@ function parseAndShowData(data) {
    const description = todayWeather.description
    todayDescription.textContent = description
    const hourlyData = todayWeather.hours
+   console.log(data.days)
    hourlyCard(hourlyData)
+
    
 
 }
@@ -92,7 +94,7 @@ function hourlyCard(hours){
         }
 
         
-        temperature.textContent = hour.temp.toFixed(1)
+        temperature.textContent =  `${hour.temp.toFixed(1)}°C`
         
 
         
@@ -108,6 +110,10 @@ function hourlyCard(hours){
         hoursdisplay.appendChild(temperature);
     }
 
+
+}
+
+function tenDayForcast(){
 
 }
 
