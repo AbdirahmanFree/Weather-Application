@@ -23,6 +23,8 @@ const searchBtn = document.getElementById("search-btn")
 
 
 
+
+
 async function getCityWeatherDataPromise(city){
     const url =  `${baseWeatherUrl}${city}${additionalWeatherUrl}`;
     try{
@@ -64,6 +66,7 @@ function parseAndShowData(data) {
    const hourlyData = todayWeather.hours
    console.log(data.days)
    hourlyCard(hourlyData)
+   tenDayForcast(data.days)
 
    
 
@@ -113,7 +116,26 @@ function hourlyCard(hours){
 
 }
 
-function tenDayForcast(){
+function tenDayForcast(days){
+    const tenDays = document.getElementById("daily-section")
+    tenDays.innerHTML = "";
+    const header = document.createElement("h3")
+    header.textContent = "10 Day Forcast";
+    header.classList.add("daily-header")
+    tenDays.appendChild(header)
+    for (let i = 0; i< 10; i++){
+        const day = days[i]
+        const date = document.createElement("p");
+        const image = document.createElement("img");
+        const minTemp = document.createElement("p");
+        const maxTemp = document.createElement("p");
+
+        const icon = day.icon
+        const iconUrl = `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/1st%20Set%20-%20Color/${icon}.png`;
+        image.src = iconUrl
+        
+    }
+    
 
 }
 
