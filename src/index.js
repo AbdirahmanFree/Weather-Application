@@ -24,13 +24,12 @@ const searchBtn = document.getElementById("search-btn")
 
 
 
-
+// Requests weather data for city from visual crossing api
 async function getCityWeatherDataPromise(city){
     const url =  `${baseWeatherUrl}${city}${additionalWeatherUrl}`;
     try{
         const response = await fetch(url)
         const data = await response.json();
-        console.log(data)
         parseAndShowData(data)
         return data;
     }
@@ -42,15 +41,13 @@ async function getCityWeatherDataPromise(city){
     
 }
 
+// takes data and parses it into useful readable information for the user
 function parseAndShowData(data) {
    const address = data.address
-   console.log("adress", address)
    location.textContent = address
    const todayWeather = data.days[0]
    const todayWeatherTemp = todayWeather.temp
    todaysTemp.textContent = `${todayWeatherTemp}°`
-   console.log(data)
-   console.log(todayWeather)
 
    const todayWeatherHigh = todayWeather.tempmax
    todayHigh.textContent = `H: ${todayWeatherHigh}°C`
@@ -64,7 +61,6 @@ function parseAndShowData(data) {
    const description = todayWeather.description
    todayDescription.textContent = description
    const hourlyData = todayWeather.hours
-   console.log(data.days)
    hourlyCard(hourlyData)
    tenDayForcast(data.days)
 
@@ -72,6 +68,7 @@ function parseAndShowData(data) {
 
 }
 
+// builds the hourly data card to show the user the weather changes per hour
 function hourlyCard(hours){
     const hoursdisplay = document.getElementById("hours");
     hoursdisplay.innerHTML = ""
@@ -116,6 +113,8 @@ function hourlyCard(hours){
 
 }
 
+
+// builds ten day forcast to show user weekly weather trends
 function tenDayForcast(days){
     const tenDays = document.getElementById("daily-section")
     tenDays.innerHTML = "";
@@ -133,20 +132,65 @@ function tenDayForcast(days){
         const icon = day.icon
         const iconUrl = `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/1st%20Set%20-%20Color/${icon}.png`;
         image.src = iconUrl
+        image.style.width = '40px'
+        image.style.height = '40px'
+        
+        date.textContent = `${formatDate(day.datetime)}`
+
+        minTemp.textContent = `${day.tempmin}°C`
+        maxTemp.textContent = `${day.tempmax}°C`
+
+        date.style.gridArea = `${i+2}/1/${i+3}/2`
+        image.style.gridArea = `${i+2}/2/${i+3}/3`
+        minTemp.style.gridArea = `${i+2}/3/${i+3}/4`
+        maxTemp.style.gridArea = `${i+2}/4/${i+3}/5`
+        
+        tenDays.appendChild(date)
+        tenDays.appendChild(image)
+        tenDays.appendChild(minTemp)
+        tenDays.appendChild(maxTemp)
+
         
     }
     
 
 }
 
+//helper function to turn data into something more human readable
+function formatDate(date){
+    const dateArray = date.split('-')
+    const year = dateArray[0]
+    const month = dateArray[1]
+    const day = dateArray[2]
+
+    const months = {
+        '01' : 'January',
+        '02' : 'Febuary',
+        '03' : 'March',
+        '04' : 'April',
+        '05' : 'May',
+        '06' : 'June',
+        '07' : 'July',
+        '08' : 'August',
+        '09' : 'September',
+        '10' : 'October',
+        '11' : 'November',
+        '12' : 'December'
+    }
+
+    const dayFormatted = parseInt(day)
+    const monthFormatted = months[month];
+    const dateFormatted = `${monthFormatted} ${dayFormatted}, ${year}`
+    return dateFormatted
+}
 
 
+
+// another asynchronous function to get the background from giphys api
 async function setBackgroundPromise(){
     
-    console.log(giphyUrl)
     const response = await fetch(giphyUrl);
     const imageJson = await response.json()
-    console.log(imageJson)
     const src = imageJson.data.images.original.url
     container.style.backgroundImage =  `url("${src}")`
 }
@@ -154,6 +198,7 @@ getCityWeatherDataPromise("Toronto")
 setBackgroundPromise()
 
 
+// event listner waiting for user to click search, to present the requested city data
 searchBtn.addEventListener("click",() => {
     const city = searchBar.value
     getCityWeatherDataPromise(city)
