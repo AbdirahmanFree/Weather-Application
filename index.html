@@ -1,1 +1,47 @@
-<head><script defer src="main.js"></script></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div id="container" class="container">
+        
+        <div id="content" class="content">
+            <div class="search-section">
+                <input  id="search-bar" placeholder="Toronto">
+                <button id="search-btn">Search</button>
+            </div>
+
+            <div class="today-weather">
+                <h1 id="city"></h1>
+                <h1 id="temperature"></h1>
+                <p id="conditions"></p>
+
+                <div class="highsAndLows">
+                    <p id="low"></p>
+                    <p id="high"></p>
+                </div>
+
+                <div class="hourly-section" id="hourly-section">
+                    <p id="description"></p>    
+                    <div id="hours" class="hours">
+                        
+                    </div>     
+                </div>
+                <div class="daily-section" id="daily-section">
+                    
+                    
+                </div>
+
+
+            </div>
+
+
+            
+        </div>
+    </div>
+    
+</body>
+</html>
